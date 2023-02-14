@@ -69,7 +69,6 @@ That should install the polarimter software. Then you can use a macro (for examp
 /PoSOS/det/setSetupName run_1
 #select output format, options are: csv root hdf5
 /PoSOS/det/setDataType csv
-#Set the position of the collimator, a values between -37 and 37 mm (size of samples)
 #Choise of source type: 0 gamma,1 Fe-55,2 Cs-137; 1 Bi-207; 2 Sr-90; 3 e-
 
 /run/initialize
