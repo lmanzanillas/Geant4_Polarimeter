@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(Ge2SOS)
+project(PoSOS)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -33,20 +33,20 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(Ge2SOS Ge2SOS.cc ${sources} ${headers})
-target_link_libraries(Ge2SOS ${Geant4_LIBRARIES} )
+add_executable(PoSOS PoSOS.cc ${sources} ${headers})
+target_link_libraries(PoSOS ${Geant4_LIBRARIES} )
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
 # build OpNovice. This is so that we can run the executable directly because it
 # relies on these scripts being in the current working directory.
 #
-set(Ge2SOS_SCRIPTS
+set(PoSOS_SCRIPTS
     vis.mac
     gui.mac
     )
 
-foreach(_script ${Ge2SOS_SCRIPTS})
+foreach(_script ${PoSOS_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
@@ -57,5 +57,5 @@ endforeach()
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS Ge2SOS DESTINATION bin)
+install(TARGETS PoSOS DESTINATION bin)
 

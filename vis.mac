@@ -13,8 +13,8 @@
 # viewing in a VRML viewer:
 #/vis/open VRML2FILE
 #
-/Ge2SOS/det/setDetectorType 0
-/Ge2SOS/gun/sourceType 0
+/PoSOS/det/setDetectorType 0
+/PoSOS/gun/sourceType 0
 # Disable auto refresh and quieten vis messages whilst scene and
 # trajectories are established:
 /vis/viewer/set/autoRefresh false

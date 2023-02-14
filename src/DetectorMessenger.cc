@@ -14,7 +14,7 @@
 DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
 :G4UImessenger(),
  fDetector(Det),
- fGe2SOSDir(0),
+ fPoSOSDir(0),
  fDetDir(0),
  commandSetWorldMaterial(0),
  commandSetDetectorType(0),
@@ -35,64 +35,64 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
  commandSetDataType(0),
  commandSetOutputDirectory(0)
  {
-  fDetDir = new G4UIdirectory("/Ge2SOS/det/");
+  fDetDir = new G4UIdirectory("/PoSOS/det/");
   fDetDir->SetGuidance("detector construction commands");
 
-  commandSetCollimatorMaterial = new G4UIcmdWithAString("/Ge2SOS/det/setCollimatorMat",this);
+  commandSetCollimatorMaterial = new G4UIcmdWithAString("/PoSOS/det/setCollimatorMat",this);
   commandSetCollimatorMaterial->SetGuidance("Select material of the collimator.");
   commandSetCollimatorMaterial->SetParameterName("choice",false);
   commandSetCollimatorMaterial->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetCollimatorMaterial->SetToBeBroadcasted(false);
 
-  commandSetTargetMaterial = new G4UIcmdWithAString("/Ge2SOS/det/setGeDetectorMat",this);
+  commandSetTargetMaterial = new G4UIcmdWithAString("/PoSOS/det/setGeDetectorMat",this);
   commandSetTargetMaterial->SetGuidance("Select material of the target.");
   commandSetTargetMaterial->SetParameterName("choice",false);
   commandSetTargetMaterial->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetTargetMaterial->SetToBeBroadcasted(false);
 
-  commandSetGeContainerMaterial = new G4UIcmdWithAString("/Ge2SOS/det/setGeContainerMat",this);
+  commandSetGeContainerMaterial = new G4UIcmdWithAString("/PoSOS/det/setGeContainerMat",this);
   commandSetGeContainerMaterial->SetGuidance("Select material of the ge container.");
   commandSetGeContainerMaterial->SetParameterName("choice",false);
   commandSetGeContainerMaterial->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetGeContainerMaterial->SetToBeBroadcasted(false);
 
-  commandSetGeContainerMaterialCoating = new G4UIcmdWithAString("/Ge2SOS/det/setGeContainerMatCoating",this);
+  commandSetGeContainerMaterialCoating = new G4UIcmdWithAString("/PoSOS/det/setGeContainerMatCoating",this);
   commandSetGeContainerMaterialCoating->SetGuidance("Select material of the ge container coating.");
   commandSetGeContainerMaterialCoating->SetParameterName("choice",false);
   commandSetGeContainerMaterialCoating->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetGeContainerMaterialCoating->SetToBeBroadcasted(false);
 
-  commandSetDetectorName = new G4UIcmdWithAString("/Ge2SOS/det/setGeDetectorName",this);
+  commandSetDetectorName = new G4UIcmdWithAString("/PoSOS/det/setGeDetectorName",this);
   commandSetDetectorName->SetGuidance("Select name of detector.");
   commandSetDetectorName->SetParameterName("choice",false);
   commandSetDetectorName->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetDetectorName->SetToBeBroadcasted(false);
 
-  commandSetSetupName = new G4UIcmdWithAString("/Ge2SOS/det/setSetupName",this);
+  commandSetSetupName = new G4UIcmdWithAString("/PoSOS/det/setSetupName",this);
   commandSetSetupName->SetGuidance("Select name of setup.");
   commandSetSetupName->SetParameterName("choice",false);
   commandSetSetupName->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetSetupName->SetToBeBroadcasted(false);
 
-  commandSetDataType = new G4UIcmdWithAString("/Ge2SOS/det/setDataType",this);
+  commandSetDataType = new G4UIcmdWithAString("/PoSOS/det/setDataType",this);
   commandSetDataType->SetGuidance("Select format of data: csv, hdf5, root.");
   commandSetDataType->SetParameterName("choice",false);
   commandSetDataType->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetDataType->SetToBeBroadcasted(false);
 
-  commandSetOutputDirectory = new G4UIcmdWithAString("/Ge2SOS/det/setOutputDirectory",this);
+  commandSetOutputDirectory = new G4UIcmdWithAString("/PoSOS/det/setOutputDirectory",this);
   commandSetOutputDirectory->SetGuidance("Set output directory");
   commandSetOutputDirectory->SetParameterName("choice",false);
   commandSetOutputDirectory->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetOutputDirectory->SetToBeBroadcasted(false);
 
-  commandSetWorldMaterial = new G4UIcmdWithAString("/Ge2SOS/det/setWorldMat",this);
+  commandSetWorldMaterial = new G4UIcmdWithAString("/PoSOS/det/setWorldMat",this);
   commandSetWorldMaterial->SetGuidance("Select material of the world.");
   commandSetWorldMaterial->SetParameterName("choice",false);
   commandSetWorldMaterial->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetWorldMaterial->SetToBeBroadcasted(false);
 
-  commandSetGeDetectorLength = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setGeDetectorLength",this);
+  commandSetGeDetectorLength = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setGeDetectorLength",this);
   commandSetGeDetectorLength->SetGuidance("Set length of target samples");
   commandSetGeDetectorLength->SetParameterName("SampleLength",false);
   commandSetGeDetectorLength->SetRange("SampleLength>0.");
@@ -100,7 +100,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetGeDetectorLength->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetGeDetectorLength->SetToBeBroadcasted(false);
 
-  commandSetGeDetectorThickness = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setGeDetectorThickness",this);
+  commandSetGeDetectorThickness = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setGeDetectorThickness",this);
   commandSetGeDetectorThickness->SetGuidance("Set thickness of target samples");
   commandSetGeDetectorThickness->SetParameterName("SampleThickness",false);
   commandSetGeDetectorThickness->SetRange("SampleThickness>0.");
@@ -108,7 +108,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetGeDetectorThickness->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetGeDetectorThickness->SetToBeBroadcasted(false);
 
-  commandSetGeDetectorWidth = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setGeDetectorWidth",this);
+  commandSetGeDetectorWidth = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setGeDetectorWidth",this);
   commandSetGeDetectorWidth->SetGuidance("Set width of target samples");
   commandSetGeDetectorWidth->SetParameterName("SampleWidth",false);
   commandSetGeDetectorWidth->SetRange("SampleWidth>0.");
@@ -116,7 +116,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetGeDetectorWidth->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetGeDetectorWidth->SetToBeBroadcasted(false);
 
-  commandSetContactThickness = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setContactThickness",this);
+  commandSetContactThickness = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setContactThickness",this);
   commandSetContactThickness->SetGuidance("Set thickness of Al contact");
   commandSetContactThickness->SetParameterName("ContactThickness",false);
   commandSetContactThickness->SetRange("ContactThickness>0.");
@@ -124,7 +124,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetContactThickness->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetContactThickness->SetToBeBroadcasted(false);
 
-  commandSetBeWindowRadius = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setBeWindowRadius",this);
+  commandSetBeWindowRadius = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setBeWindowRadius",this);
   commandSetBeWindowRadius->SetGuidance("Set radius of Be Window");
   commandSetBeWindowRadius->SetParameterName("WindowRadius",false);
   commandSetBeWindowRadius->SetRange("WindowRadius>0.");
@@ -133,7 +133,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetBeWindowRadius->SetToBeBroadcasted(false);
 
 
-  commandSetCollimatorThickness = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setCollimatorThickness",this);
+  commandSetCollimatorThickness = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setCollimatorThickness",this);
   commandSetCollimatorThickness->SetGuidance("Set thickness of target samples");
   commandSetCollimatorThickness->SetParameterName("CollimatorThickness",false);
   commandSetCollimatorThickness->SetRange("CollimatorThickness>0.");
@@ -141,7 +141,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetCollimatorThickness->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetCollimatorThickness->SetToBeBroadcasted(false);
 
-  commandSetDistanceCollimatorDetector = new G4UIcmdWithADoubleAndUnit("/Ge2SOS/det/setDistanceCollimatorDetector",this);
+  commandSetDistanceCollimatorDetector = new G4UIcmdWithADoubleAndUnit("/PoSOS/det/setDistanceCollimatorDetector",this);
   commandSetDistanceCollimatorDetector->SetGuidance("Set distance collimator detector");
   commandSetDistanceCollimatorDetector->SetParameterName("CollimatorDistance",false);
   commandSetDistanceCollimatorDetector->SetRange("CollimatorDistance>0.");
@@ -150,12 +150,12 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   commandSetDistanceCollimatorDetector->SetToBeBroadcasted(false);
 
 
-  commandSetDetectorType = new G4UIcmdWithAnInteger("/Ge2SOS/det/setDetectorType",this);
+  commandSetDetectorType = new G4UIcmdWithAnInteger("/PoSOS/det/setDetectorType",this);
   commandSetDetectorType->SetGuidance("Set detector type");
   commandSetDetectorType->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetDetectorType->SetToBeBroadcasted(false);
 
-  commandSetNumberOfTargetSamples = new G4UIcmdWithAnInteger("/Ge2SOS/det/setNTargetSamples",this);
+  commandSetNumberOfTargetSamples = new G4UIcmdWithAnInteger("/PoSOS/det/setNTargetSamples",this);
   commandSetNumberOfTargetSamples->SetGuidance("Set number of target Samples");
   commandSetNumberOfTargetSamples->AvailableForStates(G4State_PreInit,G4State_Idle);
   commandSetNumberOfTargetSamples->SetToBeBroadcasted(false);
@@ -168,7 +168,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
 DetectorMessenger::~DetectorMessenger()
 {
   delete fDetDir;
-  delete fGe2SOSDir;
+  delete fPoSOSDir;
   delete commandSetWorldMaterial;
   delete commandSetDetectorType;
   delete commandSetNumberOfTargetSamples;
