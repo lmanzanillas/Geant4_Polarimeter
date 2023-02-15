@@ -44,6 +44,7 @@ target_link_libraries(PoSOS ${Geant4_LIBRARIES} )
 set(PoSOS_SCRIPTS
     vis.mac
     gui.mac
+    test.mac
     )
 
 foreach(_script ${PoSOS_SCRIPTS})

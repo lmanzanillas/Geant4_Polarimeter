@@ -14,6 +14,8 @@
 
 /run/initialize
 /PoSOS/gun/sourceType 0
+/PoSOS/gun/sourcePositionX 0.5 mm
+/PoSOS/gun/sourcePositionY 1.0 mm
 /PoSOS/gun/sourceDiameter 0.1 mm
 /PoSOS/gun/sourceEnergy 7.0  keV
 /PoSOS/gun/sourceGammaPolarizationAngle 90

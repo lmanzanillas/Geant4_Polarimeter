@@ -33,6 +33,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det)
 	fDiameter = 0.1*mm;
 	fSourceType = 0;
 	fSourceDirectionType = 0;
+	fSourceGeometry = 0;
 	fSourceEnergy = 10*keV;
 	fTheta_polar = 0; //in degrees, so the default is horizontal polarization
 	fPolarization_degree = 0.95; // values from 0 to 1, so the default is 95% polarization 
@@ -234,7 +235,7 @@ void PrimaryGeneratorAction::SetSourceDirectionType(G4int newType)
 }
 void PrimaryGeneratorAction::SetSourceGeometry(G4int newType)
 {
-	if (newType <= 2 && newType >= 0){ 
+	if (newType <= 1 && newType >= 0){ 
 		fSourceGeometry = newType;}
 	else{ 
 		G4cerr<<"Possible values are 0 for square and 1 for circunference"<<G4endl;
