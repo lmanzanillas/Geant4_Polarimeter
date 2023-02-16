@@ -87,7 +87,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
 
   //G4String positionZ = G4BestUnit((fDetector->GetGeDetectorThickness()-fPrimary->GetSourcePositionZ()),"Length");
   G4String positionX ="_x_"+std::to_string((int)(1000 * fPrimary->GetSourcePositionX()))+"um";
-  G4String positionY ="_y_"+std::to_string((int)(1000 *fPrimary->GetSourcePositionX()))+"um";
+  G4String positionY ="_y_"+std::to_string((int)(1000 *fPrimary->GetSourcePositionY()))+"um";
   G4String sourceEnergy =std::to_string((int)(1000. * fPrimary->GetSourceEnergy()))+"_keV";
 
   G4cout << "### Run " << aRun->GetRunID() << " start." << G4endl;
