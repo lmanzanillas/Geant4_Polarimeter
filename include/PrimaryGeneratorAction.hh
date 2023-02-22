@@ -36,6 +36,7 @@ public:
 	void  SetSourceDiameter(G4double newValue);
 	void  SetSourcePolarizationDegree(G4double newValue);
 	void  SetSourcePolarizationAngle(G4double newValue);
+	void  SetSourceCircularPolarizationAngle(G4double newValue);
 	G4int GetSourceType(void){return fSourceType;};
 	G4int GetSourceGeometry(void){return fSourceGeometry;};
 	G4double GetSourceEnergy(void){return fSourceEnergy;};
@@ -45,6 +46,7 @@ public:
 	G4double GetSourcePositionZ(void){return fPositionZ;};
 	G4double GetSourceDiameter(void){return fDiameter;};
 	G4double GetSourcePolarizationAngle(void){return fTheta_polar;};
+	G4double GetSourceCircularPolarizationAngle(void){return fOmega_polar;};
 	G4double GetSourcePolarizationDegree(void){return fPolarization_degree;};
 private:
 	G4double fPositionX;
@@ -59,6 +61,7 @@ private:
 	G4int           fSourceGeometry;
 	G4double	fSourceEnergy;
 	G4double	fTheta_polar;
+	G4double	fOmega_polar;
 	G4double	fPolarization_degree;
 	DetectorConstruction*      fDetector;
 	G4double		fPhotonWavelength;

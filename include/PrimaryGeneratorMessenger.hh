@@ -28,6 +28,7 @@ class PrimaryGeneratorMessenger: public G4UImessenger
     G4UIcmdWithAnInteger*			fSourceGeometry;
     G4UIcmdWithADoubleAndUnit* fSourceEnergy;
     G4UIcmdWithADouble* fSourcePolarizationAngle;
+    G4UIcmdWithADouble* fSourceCircularPolarizationAngle;
     G4UIcmdWithADouble* fSourcePolarizationDegree;
     G4UIcmdWithADoubleAndUnit* fSourcePositionX;
     G4UIcmdWithADoubleAndUnit* fSourcePositionY;

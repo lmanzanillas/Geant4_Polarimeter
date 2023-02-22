@@ -36,6 +36,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det)
 	fSourceGeometry = 0;
 	fSourceEnergy = 10*keV;
 	fTheta_polar = 0; //in degrees, so the default is horizontal polarization
+	fOmega_polar = 90; //in degrees, so the default is linear polarization
 	fPolarization_degree = 0.95; // values from 0 to 1, so the default is 95% polarization 
 	fPhotonWavelength = 0;
 	fParticleName = "void";
@@ -78,9 +79,11 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
 	//Polarazation of gammas
 	G4double theta_polar_radians = fTheta_polar * pi * rad / 180; 
-	G4double stoke_vector_e1 =  cos(theta_polar_radians); 
-	G4double stoke_vector_e2 =  sin(theta_polar_radians); 
-	G4ThreeVector stokes_vector = G4ThreeVector(stoke_vector_e1,stoke_vector_e2,0);
+	G4double omega_polar_radians = fOmega_polar * pi * rad / 180; 
+	G4double stoke_vector_e1 =  cos(theta_polar_radians)*cos(omega_polar_radians); 
+	G4double stoke_vector_e2 =  sin(theta_polar_radians)*cos(omega_polar_radians); 
+	G4double stoke_vector_e3 =  sin(omega_polar_radians); 
+	G4ThreeVector stokes_vector = G4ThreeVector(stoke_vector_e1,stoke_vector_e2,stoke_vector_e3);
 
 
 	if( fPolarization_degree < G4UniformRand()){
@@ -199,6 +202,10 @@ void PrimaryGeneratorAction::SetSourceDiameter(G4double newDiameter){
 
 void PrimaryGeneratorAction::SetSourcePolarizationAngle(G4double newAngle){
 	fTheta_polar = newAngle;
+}
+
+void PrimaryGeneratorAction::SetSourceCircularPolarizationAngle(G4double newAngle){
+	fOmega_polar = newAngle;
 }
 
 void PrimaryGeneratorAction::SetSourcePolarizationDegree(G4double newPolarDegree){

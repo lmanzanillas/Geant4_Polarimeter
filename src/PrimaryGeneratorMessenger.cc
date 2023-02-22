@@ -46,6 +46,12 @@ PrimaryGeneratorMessenger::PrimaryGeneratorMessenger(PrimaryGeneratorAction* Gun
   fSourcePolarizationAngle->SetDefaultValue(0.);
   fSourcePolarizationAngle->AvailableForStates(G4State_Idle);
 
+  fSourceCircularPolarizationAngle = new G4UIcmdWithADouble("/PoSOS/gun/sourceGammaCircularPolarizationAngle", this);
+  fSourceCircularPolarizationAngle->SetGuidance("Choose circular angle of polarization in degrees");
+  fSourceCircularPolarizationAngle->SetParameterName("sourceCircularPolarAngle",true);
+  fSourceCircularPolarizationAngle->SetDefaultValue(0.);
+  fSourceCircularPolarizationAngle->AvailableForStates(G4State_Idle);
+
   fSourcePolarizationDegree = new G4UIcmdWithADouble("/PoSOS/gun/sourceGammaPolarizationDegree", this);
   fSourcePolarizationDegree->SetGuidance("Choose degree of polarization o to 1");
   fSourcePolarizationDegree->SetParameterName("sourcePolarDegree",true);
@@ -87,6 +93,7 @@ PrimaryGeneratorMessenger::~PrimaryGeneratorMessenger()
   delete fSourceGeometry;
   delete fSourceEnergy;
   delete fSourcePolarizationAngle;
+  delete fSourceCircularPolarizationAngle;
   delete fSourcePolarizationDegree;
   delete fGunDir;
   delete fSourcePositionX;
@@ -114,6 +121,9 @@ void PrimaryGeneratorMessenger::SetNewValue(G4UIcommand* command, G4String newVa
   }
   if(command == fSourcePolarizationAngle){
   	fAction->SetSourcePolarizationAngle(fSourcePolarizationAngle->GetNewDoubleValue(newValue));
+  }
+  if(command == fSourceCircularPolarizationAngle){
+  	fAction->SetSourceCircularPolarizationAngle(fSourceCircularPolarizationAngle->GetNewDoubleValue(newValue));
   }
   if(command == fSourcePolarizationDegree){
   	fAction->SetSourcePolarizationDegree(fSourcePolarizationDegree->GetNewDoubleValue(newValue));

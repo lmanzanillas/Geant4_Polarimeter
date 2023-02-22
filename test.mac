@@ -5,7 +5,7 @@
 /process/em/pixe true
 
 #/run/numberOfThreads 4
-#/PoSOS/det/setOutputDirectory /nfs/tegile/work/experiences/detecteurs/manzanillas/LEAPS_INNOV/Geant4_output/ 
+/PoSOS/det/setOutputDirectory /nfs/tegile/work/experiences/detecteurs/manzanillas/Polarimetry/Geant4Output/ 
 /PoSOS/det/setSetupName run_1
 #select output format, options are: csv root hdf5
 /PoSOS/det/setDataType csv
