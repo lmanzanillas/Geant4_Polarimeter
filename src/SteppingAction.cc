@@ -49,7 +49,7 @@ void SteppingAction::UserSteppingAction(const G4Step * theStep)
         //double PosDirz = step->GetTrack()->GetPosition().x();
         //step->GetPreStepPoint()->GetPosition()
 	//
-	if ( thePrePV->GetName()=="target_1"){
+	if ( thePrePV->GetName()=="target_1" || thePrePV->GetName()=="target_2"){
                 fEventAction->AddInfo(thePrePoint->GetPosition().x(),thePrePoint->GetPosition().y(),thePrePoint->GetPosition().z(),edepStep);
   	}
 

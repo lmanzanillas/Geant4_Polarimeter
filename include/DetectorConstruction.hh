@@ -127,6 +127,10 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     G4double halfSizeDarkBoxY;
     G4double halfSizeDarkBoxZ;
 
+    G4double halfSizeCameraX;
+    G4double halfSizeCameraY;
+    G4double halfSizeCameraZ;
+
     G4double detectorInnerRadius;
     G4double detectorThickness;
     G4double detectorHeight;
@@ -152,6 +156,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     G4double halfCollimatorThickness;
     G4double distanceCollimatorDetector;
     G4Box* fWorldBox;
+    G4Box* cameraBox;
     G4Tubs* geDetectorTube;
     G4Box* AlContactBox;
     G4Tubs* sampleTube;
@@ -161,6 +166,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume* logicCollimatorLEAPSSmall;
     G4LogicalVolume* logicCollimatorSAMBA;
     G4LogicalVolume* logicSample;
+    G4LogicalVolume* logicCameraBox;
     G4LogicalVolume* geLogicVolume;
     G4LogicalVolume* logicContactVolume;
     G4LogicalVolume* logicBeWindow;

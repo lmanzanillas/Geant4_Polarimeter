@@ -31,12 +31,14 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det)
         fPositionY = 0.0 *mm;
 	fPositionZ = 30.*mm;
 	fDiameter = 0.1*mm;
+	fsource_size_X = 0.1*mm;
+	fsource_size_Y = 0.03*mm;
 	fSourceType = 0;
 	fSourceDirectionType = 0;
-	fSourceGeometry = 0;
+	fSourceGeometry = 1;
 	fSourceEnergy = 10*keV;
 	fTheta_polar = 0; //in degrees, so the default is horizontal polarization
-	fOmega_polar = 90; //in degrees, so the default is linear polarization
+	fOmega_polar = 0; //in degrees, so the default is linear polarization
 	fPolarization_degree = 0.95; // values from 0 to 1, so the default is 95% polarization 
 	fPhotonWavelength = 0;
 	fParticleName = "void";
@@ -68,6 +70,13 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
         G4double z_sourceframe = r*sin(theta)*CLHEP::mm;
 	//G4cout<<" r "<<r<<" theta: "<<theta<<" x "<<x_sourceframe<<" y "<<y_sourceframe<<G4endl;
         G4ThreeVector position = G4ThreeVector(x_sourceframe, y_sourceframe, fPositionZ);
+        
+	if (fSourceGeometry == 1){
+		x_sourceframe = fsource_size_X * (G4UniformRand() - 0.5);
+		y_sourceframe = fsource_size_Y * (G4UniformRand() - 0.5);
+        	position = G4ThreeVector(x_sourceframe, y_sourceframe, fPositionZ);
+	}
+
 
 	//For random direction in order to optimize we generate random point in a sphere, but we are interested only in the values close to phi = 180 degrees, which is why we use random()/20 -1
         theta = 2. * pi * G4UniformRand()*rad;
@@ -85,9 +94,11 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	G4double stoke_vector_e3 =  sin(omega_polar_radians); 
 	G4ThreeVector stokes_vector = G4ThreeVector(stoke_vector_e1,stoke_vector_e2,stoke_vector_e3);
 
+        //G4cout<<"stokes: "<<stokes_vector<<G4endl; 
 
 	if( fPolarization_degree < G4UniformRand()){
-		stokes_vector = G4ThreeVector(0,0,0);
+		//G4cout<<" degree "<<fPolarization_degree<<G4endl;
+		stokes_vector = G4ThreeVector(0,0,1);
 	}
 
 	if(fSourceDirectionType == 1){
@@ -200,6 +211,14 @@ void PrimaryGeneratorAction::SetSourceDiameter(G4double newDiameter){
 	fDiameter = newDiameter;
 }
 
+void PrimaryGeneratorAction::SetSourceSizeX(G4double newSizeX){
+	fsource_size_X = newSizeX;
+}
+
+void PrimaryGeneratorAction::SetSourceSizeY(G4double newSizeY){
+	fsource_size_Y = newSizeY;
+}
+
 void PrimaryGeneratorAction::SetSourcePolarizationAngle(G4double newAngle){
 	fTheta_polar = newAngle;
 }
@@ -245,9 +264,9 @@ void PrimaryGeneratorAction::SetSourceGeometry(G4int newType)
 	if (newType <= 1 && newType >= 0){ 
 		fSourceGeometry = newType;}
 	else{ 
-		G4cerr<<"Possible values are 0 for square and 1 for circunference"<<G4endl;
-		G4cerr<<"Setting the default value to square "<<G4endl;
-  		fSourceGeometry = 0;
+		G4cerr<<"Possible values are 1 for rectangular and 0 for circunference"<<G4endl;
+		G4cerr<<"Setting the default value to rectangular "<<G4endl;
+  		fSourceGeometry = 1;
 	}
 }
 void PrimaryGeneratorAction::SetSourceEnergy(G4double newEnergy)

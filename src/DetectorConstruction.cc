@@ -79,12 +79,15 @@ geLogicVolume(nullptr)
   detectorThickness = 10.0*mm;
   detectorHeight = 11.5*mm;
   sampleInnerRadius = 0.0*mm;
-  sampleThickness = 1.5*mm;
-  sampleHeight = 5.0*mm;
+  sampleThickness = 1.615*mm;
+  sampleHeight = 10.0*mm;
   beWindowRadius = 8.0*mm;
   CollimatorThickness = 20.0*mm;
   distanceCollimatorDetector = 5.0*mm;
   ContactThickness = 300.0*nm;
+  halfSizeCameraX = 50.0*mm;
+  halfSizeCameraY = 50.0*mm;
+  halfSizeCameraZ = 0.15*mm;
   nSamples = 1;
   fDetectorType = 0;
   fDetectorName = "Polarimeter";
@@ -409,11 +412,32 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   geDetectorTube = new G4Tubs("target", detectorInnerRadius, detectorExternalRadius, detectorHeight, 0.*deg, 360.*deg);
   geLogicVolume = new G4LogicalVolume(geDetectorTube,fTargetMaterial, "target",0,0,0);
 
+  //camera behind sample 
+  cameraBox = new G4Box("camera",halfSizeCameraX,halfSizeCameraY,halfSizeCameraZ);
+  logicCameraBox = new G4LogicalVolume(cameraBox,fTargetMaterial,"target",0,0,0);
+
   //solidGeContainer = new G4Tubs("ge_container", geContainerInnerRadius, geContainerOuterRadius, geContainerHalfThickness, 0.*deg,360.*deg);
 
   G4double sampleExternalRadius = sampleInnerRadius + sampleThickness;
+  G4double sampleContainerExternalRadius = (8.39/2)*mm;
+  G4double secondContainerExternalRadius = (12.09/2)*mm;
+  G4double heightSampleContainer = 37.*mm;
+  G4double heightSecondContainer = 93.*mm;
+
+  G4double insertSampleContainer = 8.7*mm;
+  G4double insertSampleContainerContainer = 15.*mm;
+
   sampleTube = new G4Tubs("sample", sampleInnerRadius, sampleExternalRadius, sampleHeight, 0.*deg, 360.*deg);
+  G4Tubs* sampleTubeContainer = new G4Tubs("containerSample", sampleExternalRadius, sampleContainerExternalRadius, heightSampleContainer, 0.*deg, 360.*deg);
+  G4Tubs* sampleTubeSecondContainer = new G4Tubs("containerOfContainer", sampleContainerExternalRadius, secondContainerExternalRadius, heightSecondContainer, 0.*deg, 360.*deg);
+
   logicSample = new G4LogicalVolume(sampleTube,fSampleMaterial, "sample",0,0,0);
+  G4LogicalVolume* logicSampleContainer = new G4LogicalVolume(sampleTubeContainer,fSampleMaterial, "sample",0,0,0);
+  G4LogicalVolume* logicSecondContainer = new G4LogicalVolume(sampleTubeSecondContainer,fSampleMaterial, "sample",0,0,0);
+
+  G4double zPositionContainer = - sampleHeight - insertSampleContainer - heightSampleContainer/2;
+  G4double zPositionContainerContainer =  zPositionContainer - insertSampleContainerContainer - heightSecondContainer/2;
+  G4double zPositionCamera = - sampleHeight - sampleHeight/2.;
 
   //Detector
   G4VisAttributes* visualAttributesGeDetector = new G4VisAttributes(G4Colour::Blue());
@@ -424,12 +448,29 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   geLogicVolume->SetVisAttributes(visualAttributesGeDetector);
 
 
+  G4VisAttributes* visualAttributesCamera = new G4VisAttributes(G4Colour::Brown());
+  visualAttributesCamera->SetVisibility(true);
+  visualAttributesCamera->SetForceWireframe(true);
+  visualAttributesCamera->SetForceAuxEdgeVisible(true);
+  visualAttributesCamera->SetForceSolid(true);
+  logicCameraBox->SetVisAttributes(visualAttributesCamera);
+
+
 
   G4VisAttributes* visualAttributesSample = new G4VisAttributes(G4Colour::Black());
   visualAttributesSample->SetVisibility(true);
   visualAttributesSample->SetForceSolid(true);
   logicSample->SetVisAttributes(visualAttributesSample);
 
+  G4VisAttributes* visualAttributesSampleContainer = new G4VisAttributes(G4Colour::Blue());
+  visualAttributesSampleContainer->SetVisibility(true);
+  visualAttributesSampleContainer->SetForceSolid(true);
+  logicSampleContainer->SetVisAttributes(visualAttributesSampleContainer);
+
+  G4VisAttributes* visualAttributesSampleContainer2 = new G4VisAttributes(G4Colour::Red());
+  visualAttributesSampleContainer2->SetVisibility(true);
+  visualAttributesSampleContainer2->SetForceSolid(true);
+  logicSecondContainer->SetVisAttributes(visualAttributesSampleContainer2);
 
   //  ============================================================= Place volumes =============================================================
   
@@ -445,13 +486,55 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 		logicWorldBox,false,1,false);
  
   	 new G4PVPlacement(0, 
-		G4ThreeVector(0,0,0),
+		G4ThreeVector(0,0,- sampleHeight/2.),
 		logicSample,
 		"sample"+std::to_string(1),
 		logicWorldBox,false,1,false);
  
+  	 new G4PVPlacement(0, 
+		G4ThreeVector(0,0,zPositionContainer),
+		logicSampleContainer,
+		"sampleContainer"+std::to_string(1),
+		logicWorldBox,false,1,false);
+ 
+  	 new G4PVPlacement(0, 
+		G4ThreeVector(0,0,zPositionContainerContainer),
+		logicSecondContainer,
+		"sampleSecondContainer"+std::to_string(1),
+		logicWorldBox,false,1,false);
+ 
     
      break;
+  //with camera behind sample
+  case 1:
+  	 new G4PVPlacement(0, 
+		G4ThreeVector(0,0,0),
+		geLogicVolume,
+		"target_"+std::to_string(1),
+		logicWorldBox,false,1,false);
+ 
+  	 new G4PVPlacement(0, 
+		G4ThreeVector(0,0,- sampleHeight/2.),
+		logicSample,
+		"sample"+std::to_string(1),
+		logicWorldBox,false,1,false);
+ 
+	 /*
+  	 new G4PVPlacement(0, 
+		G4ThreeVector(0,0,zPositionContainer),
+		logicSampleContainer,
+		"sampleContainer"+std::to_string(1),
+		logicWorldBox,false,1,false);
+          */
+  	 new G4PVPlacement(0, 
+		G4ThreeVector(0,0,zPositionCamera),
+		logicCameraBox,
+		"target_"+std::to_string(2),
+		logicWorldBox,false,1,false);
+ 
+    
+     break;
+
   //Detector + collimator for "direct" beam radiation
   
   }

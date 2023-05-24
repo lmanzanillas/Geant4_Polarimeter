@@ -34,6 +34,8 @@ class PrimaryGeneratorMessenger: public G4UImessenger
     G4UIcmdWithADoubleAndUnit* fSourcePositionY;
     G4UIcmdWithADoubleAndUnit* fSourcePositionZ;
     G4UIcmdWithADoubleAndUnit* fSourceDiameter;
+    G4UIcmdWithADoubleAndUnit* fSourceSizeX;
+    G4UIcmdWithADoubleAndUnit* fSourceSizeY;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

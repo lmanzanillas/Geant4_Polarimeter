@@ -34,6 +34,8 @@ public:
 	void  SetSourcePositionY(G4double newValue);
 	void  SetSourcePositionZ(G4double newValue);
 	void  SetSourceDiameter(G4double newValue);
+	void  SetSourceSizeX(G4double newValue);
+	void  SetSourceSizeY(G4double newValue);
 	void  SetSourcePolarizationDegree(G4double newValue);
 	void  SetSourcePolarizationAngle(G4double newValue);
 	void  SetSourceCircularPolarizationAngle(G4double newValue);
@@ -45,6 +47,8 @@ public:
 	G4double GetSourcePositionY(void){return fPositionY;};
 	G4double GetSourcePositionZ(void){return fPositionZ;};
 	G4double GetSourceDiameter(void){return fDiameter;};
+	G4double GetSourceSizeX(void){return fsource_size_X;};
+	G4double GetSourceSizeY(void){return fsource_size_Y;};
 	G4double GetSourcePolarizationAngle(void){return fTheta_polar;};
 	G4double GetSourceCircularPolarizationAngle(void){return fOmega_polar;};
 	G4double GetSourcePolarizationDegree(void){return fPolarization_degree;};
@@ -53,6 +57,8 @@ private:
 	G4double fPositionY;
 	G4double fPositionZ;
 	G4double fDiameter;
+	G4double fsource_size_X;
+	G4double fsource_size_Y;
 	G4String fParticleName;
 	PrimaryGeneratorMessenger* fPrimaryMessenger;
 	G4ParticleGun*  fParticleGun;

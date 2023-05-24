@@ -82,6 +82,18 @@ PrimaryGeneratorMessenger::PrimaryGeneratorMessenger(PrimaryGeneratorAction* Gun
   fSourceDiameter->SetDefaultValue(5.*mm);
   fSourceDiameter->AvailableForStates(G4State_Idle);
 
+  fSourceSizeX = new G4UIcmdWithADoubleAndUnit("/PoSOS/gun/sourceSizeX",this);
+  fSourceSizeX->SetGuidance("Set Source horizontal size");
+  fSourceSizeX->SetParameterName("fSourceSizeH",true);
+  fSourceSizeX->SetDefaultValue(0.1*mm);
+  fSourceSizeX->AvailableForStates(G4State_Idle);
+
+  fSourceSizeY = new G4UIcmdWithADoubleAndUnit("/PoSOS/gun/sourceSizeY",this);
+  fSourceSizeY->SetGuidance("Set source vertical size");
+  fSourceSizeY->SetParameterName("fSourceSizeV",true);
+  fSourceSizeY->SetDefaultValue(0.1*mm);
+  fSourceSizeY->AvailableForStates(G4State_Idle);
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -100,6 +112,8 @@ PrimaryGeneratorMessenger::~PrimaryGeneratorMessenger()
   delete fSourcePositionY;
   delete fSourcePositionZ;
   delete fSourceDiameter;
+  delete fSourceSizeX;
+  delete fSourceSizeY;
   //delete fAction;//debug
 }
 
@@ -139,6 +153,12 @@ void PrimaryGeneratorMessenger::SetNewValue(G4UIcommand* command, G4String newVa
   }
   if(command == fSourceDiameter){
   	fAction->SetSourceDiameter(fSourceDiameter->GetNewDoubleValue(newValue));
+  }
+  if(command == fSourceSizeX){
+  	fAction->SetSourceSizeX(fSourceSizeX->GetNewDoubleValue(newValue));
+  }
+  if(command == fSourceSizeY){
+  	fAction->SetSourceSizeY(fSourceSizeY->GetNewDoubleValue(newValue));
   }
 }
 
