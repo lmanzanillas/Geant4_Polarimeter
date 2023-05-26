@@ -73,8 +73,13 @@ That should install the polarimter software. Then you can use a macro (for examp
 
 /run/initialize
 /PoSOS/gun/sourceType 0
-/PoSOS/gun/sourceDiameter 0.1 mm
+#the default is rectangular geometry of the beam but can be changed to circular uncomenting the next line
+#/PoSOS/gun/sourceDiameter 0.1 mm
+#These values should be adjunsted according to the information about the beam size 
+/PoSOS/gun/sourceSizeX 0.1 mm 
+/PoSOS/gun/sourceSizeY 0.03 mm 
 /PoSOS/gun/sourceEnergy 7.0  keV
+#For horizontal polarization set angle to 0, for vertical polarization set angle to  90, etc 
 /PoSOS/gun/sourceGammaPolarizationAngle 90
 /PoSOS/gun/sourceGammaPolarizationDegree 0.9
 
