@@ -75,8 +75,8 @@ geLogicVolume(nullptr)
   halfSizeDarkBoxX = halfSizeDarkBoxY = halfSizeDarkBoxZ = 1.*m;
   fSetupName = "Polar";
   fDataType = "csv";
-  detectorInnerRadius = 200.0*mm;
-  detectorThickness = 10.0*mm;
+  detectorInnerRadius = 62.2*mm;
+  detectorThickness = 2.0*mm;
   detectorHeight = 11.5*mm;
   sampleInnerRadius = 0.0*mm;
   sampleThickness = 1.615*mm;
