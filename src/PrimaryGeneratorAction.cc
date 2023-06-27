@@ -72,8 +72,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
         G4ThreeVector position = G4ThreeVector(x_sourceframe, y_sourceframe, fPositionZ);
         
 	if (fSourceGeometry == 1){
-		x_sourceframe = fsource_size_X * (G4UniformRand() - 0.5);
-		y_sourceframe = fsource_size_Y * (G4UniformRand() - 0.5);
+		x_sourceframe = fPositionX + fsource_size_X * (G4UniformRand() - 0.5);
+		y_sourceframe = fPositionY + fsource_size_Y * (G4UniformRand() - 0.5);
         	position = G4ThreeVector(x_sourceframe, y_sourceframe, fPositionZ);
 	}
 
